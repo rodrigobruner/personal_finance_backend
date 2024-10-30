@@ -12,10 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 import app.finance.api.Model.UserModel;
 import app.finance.api.Repository.IUserRepository;
 import at.favre.lib.crypto.bcrypt.BCrypt;
+
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @RestController
+@CrossOrigin(origins = "*") 
 @RequestMapping("/Users")
 public class UserController {
 
@@ -24,7 +30,6 @@ public class UserController {
     @Autowired
     private IUserRepository userRepository;
 
-    @CrossOrigin(origins = "http://localhost:3000") 
     @PostMapping("/")
     public ResponseEntity<?> create(@RequestBody UserModel userModel){
         try {
@@ -45,7 +50,6 @@ public class UserController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:3000") 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserModel userModel){
         try {
@@ -69,21 +73,15 @@ public class UserController {
         }
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity<?> logout(){
-        //TODO: Implement logout
-        return ResponseEntity.status(HttpStatus.OK).body("Logout");
-    }
-
-    @PostMapping("/forgot-password")
-    public ResponseEntity<?> forgotPassword(){
-        //TODO: Implement forgot password
-        return ResponseEntity.status(HttpStatus.OK).body("Forgot password");
-    }
-
-    @PostMapping("/reset-password")
-    public ResponseEntity<?> resetPassword(){
-        //TODO: Implement reset password
-        return ResponseEntity.status(HttpStatus.OK).body("Reset password");
+    @GetMapping("/accounts")
+    public ResponseEntity<List<UserModel>> getMethodName() {
+        try {
+            var users = this.userRepository.findAll();
+            return ResponseEntity.status(HttpStatus.OK).body(users);
+        } catch (Exception e) {
+            logger.error("Error select users", e);
+            // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error select users");
+        }
+        return null;
     }
 }

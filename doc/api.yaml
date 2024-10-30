@@ -1,0 +1,359 @@
+openapi: 3.0.0
+info:
+  title: Personal Finance API
+  description: API for managing personal finances, including income, expenses, transfers between accounts, and spending categories.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local server
+
+paths:
+  /Users:
+    get:
+      summary: Get all users
+      responses:
+        '200':
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: Create a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewUser'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /Users/login:
+    post:
+      summary: User login
+      description: Authenticates a user with email and password.
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLoginRequest'
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTYwOTI3NjY2NywiZXhwIjoxNjA5MjgwMjY3fQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: User not found or Invalid password
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Error logging in user  
+  /Accounts:
+    get:
+      summary: Get all accounts
+      responses:
+        '200':
+          description: A list of accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+    post:
+      summary: Create a new account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+      responses:
+        '201':
+          description: Account created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+  /Accounts/{id}:
+    get:
+      summary: Get account by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID of the account to retrieve
+      responses:
+        '200':
+          description: Account details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '404':
+          description: Account not found
+    put:
+      summary: Update account by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID of the account to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+      responses:
+        '200':
+          description: Account updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '404':
+          description: Account not found
+  /Accounts/user/{uid}:
+    get:
+      summary: Get account by User UID
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          schema:
+            type: integer
+          description: UID of the user to retrieve the account for
+      responses:
+        '200':
+          description: Account details
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        '404':
+          description: Account not found
+  /AccountTypes:
+    get:
+      summary: Get all account types
+      description: Retrieves all account types.
+      tags:
+        - AccountTypes
+      parameters:
+        - in: query
+          name: locale
+          schema:
+            type: string
+          required: true
+          description: Locale to filter account types
+      responses:
+        '200':
+          description: A list of account types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccountType'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        uid:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          example: john.doe@example.com
+        password:
+          type: string
+          example: password123
+        status:
+          type: string
+          enum: [Active, Inactive, Blocked]
+          example: Active
+
+    NewUser:
+      type: object
+      properties:
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          example: john.doe@example.com
+        password:
+          type: string
+          example: password123
+
+    UserLoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          example: john.doe@example.com
+        password:
+          type: string
+          format: password
+          example: password123
+
+    AccountType:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        type:
+          type: string
+          example: Savings
+
+    Account:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        user:
+          type: object
+          properties:
+            uid:
+              type: integer
+              example: 1
+        name:
+          type: string
+          example: Main Account
+        accountType:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+        initialAmount:
+          type: number
+          format: double
+          example: 1000.00
+        updatedAmount:
+          type: number
+          format: double
+          example: 1200.00
+        createAt:
+          type: string
+          format: date-time
+          example: 2024-10-28T10:30:01Z
+        status:
+          type: string
+          enum: [Active, Inactive]
+          example: Active
+
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        user_uid:
+          type: integer
+          example: 1
+        Name:
+          type: string
+          example: Groceries
+        createAt:
+          type: string
+          format: date-time
+          example: 2024-10-28T10:30:01Z
+        categoryType:
+          type: string
+          enum: [Income, Expense]
+          example: Expense
+
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        account_id:
+          type: integer
+          example: 1
+        category_id:
+          type: integer
+          example: 1
+        value:
+          type: number
+          format: double
+          example: 50.00
+        notes:
+          type: string
+          example: Grocery shopping
+        date:
+          type: string
+          format: date
+          example: 2024-10-28
+        createAt:
+          type: string
+          format: date-time
+          example: 2024-10-28T10:30:01Z
+
+    Transfer:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        fromIdAccount:
+          type: integer
+          example: 1
+        toIdAccount:
+          type: integer
+          example: 2
+        value:
+          type: number
+          format: double
+          example: 200.00
+        notes:
+          type: string
+          example: Transfer to savings
+        date:
+          type: string
+          format: date
+          example: 2024-10-28
+        createAt:
+          type: string
+          format: date-time
+          example: 2024-10-28T10:30:01Z
