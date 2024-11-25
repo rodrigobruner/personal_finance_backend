@@ -2,6 +2,7 @@ package app.finance.api.Controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +82,25 @@ public class AccountController {
         }
     }
 
+    @PutMapping("/{id}/status")
+    public ResponseEntity<AccountModel> updateAccountStatus(@PathVariable("id") int id, @RequestBody Map<String, String> statusUpdate) {
+        try {
+            Optional<AccountModel> accountOptional = accountRepository.findById(id);
+            if (accountOptional.isPresent()) {
+                AccountModel account = accountOptional.get();
+                String newStatus = statusUpdate.get("status");
+                account.setStatus("ACTIVE".equalsIgnoreCase(newStatus) ? Status.Active : Status.Inactive);
+                accountRepository.save(account);
+                return new ResponseEntity<>(account, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+
     @GetMapping("/")
     public ResponseEntity<List<AccountModel>> getAllAccounts() {
         try {
@@ -89,6 +109,20 @@ public class AccountController {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
             return new ResponseEntity<>(accounts, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AccountModel> getAccountById(@PathVariable("id") int id) {
+        try {
+            Optional<AccountModel> account = accountRepository.findById(id);
+            if (account.isPresent()) {
+                return new ResponseEntity<>(account.get(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

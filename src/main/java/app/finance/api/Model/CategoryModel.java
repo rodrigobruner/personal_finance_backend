@@ -15,17 +15,24 @@ public class CategoryModel {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "user_uid", nullable = false)
+    @JoinColumn(name = "uid", nullable = false)
     private UserModel user;
 
-    @Column(name = "Name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "createAt")
+    @Column(name = "createAt", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "categoryType", nullable = false)
     private CategoryType categoryType = CategoryType.Expense;
+
+    @PrePersist
+    protected void onCreate() {
+        if (createAt == null) {
+            createAt = new Date();
+        }
+    }
 }
