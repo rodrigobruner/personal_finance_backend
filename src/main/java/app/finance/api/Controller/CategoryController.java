@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import app.finance.api.Model.AccountModel;
 import app.finance.api.Model.CategoryModel;
 import app.finance.api.Model.CategoryType;
-import app.finance.api.Repository.CategoryRepository;
+import app.finance.api.Repository.ICategoryRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,12 +19,15 @@ import java.util.Optional;
 public class CategoryController {
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private ICategoryRepository categoryRepository;
 
     // Create a new category
     @PostMapping
     public ResponseEntity<CategoryModel> createCategory(@RequestBody CategoryModel category) {
-        category.setCategoryType(category.getCategoryType().toString().toUpperCase() == "EXPENSE" ? CategoryType.Expense : CategoryType.Income);
+
+        CategoryType categoryType = category.getCategoryType().toString().toUpperCase().equals("EXPENSE") ? 
+            CategoryType.Expense : CategoryType.Income;
+        category.setCategoryType(categoryType);
         CategoryModel savedCategory = categoryRepository.save(category);
         return ResponseEntity.ok(savedCategory);
     }
@@ -60,7 +63,9 @@ public class CategoryController {
         if (optionalCategory.isPresent()) {
             CategoryModel category = optionalCategory.get();
             category.setName(categoryDetails.getName());
-            category.setCategoryType(categoryDetails.getCategoryType().toString().toUpperCase() == "EXPENSE" ? CategoryType.Expense : CategoryType.Income);
+            CategoryType categoryType = categoryDetails.getCategoryType().toString().toUpperCase().equals("EXPENSE") ? 
+            CategoryType.Expense : CategoryType.Income;
+        category.setCategoryType(categoryType);
 
             category.setUser(categoryDetails.getUser());
             CategoryModel updatedCategory = categoryRepository.save(category);
