@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import app.finance.api.dto.CategorySummary;
 import app.finance.api.dto.MonthlySummary;
 import app.finance.api.Model.AccountModel;
 import app.finance.api.Model.CategoryType;
@@ -12,6 +13,8 @@ import app.finance.api.Repository.IAccountRepository;
 import app.finance.api.Repository.ITransactionRepository;
 
 import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -174,4 +177,15 @@ public class TransactionController {
 
         return response;
     }
+
+    @GetMapping("/category-summary/{categoryType}/{startDate}/{endDate}")
+    public List<CategorySummary> getCategorySummary(@PathVariable CategoryType categoryType,
+                                                    @PathVariable String startDate,
+                                                    @PathVariable String endDate) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date start = dateFormat.parse(startDate);
+        Date end = dateFormat.parse(endDate);
+        return transactionRepository.findCategorySummaryByTypeAndDateRange(categoryType, start, end);
+    }
+
 }

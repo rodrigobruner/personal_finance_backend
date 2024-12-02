@@ -14,10 +14,12 @@ import app.finance.api.Repository.IUserRepository;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
@@ -80,7 +82,17 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK).body(users);
         } catch (Exception e) {
             logger.error("Error select users", e);
-            // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error select users");
+        }
+        return null;
+    }
+
+    @GetMapping("/accounts/{id}")
+    public ResponseEntity<Optional<UserModel>> getMethodName(@PathVariable int id) {
+        try {
+            var user = this.userRepository.findById(id);
+            return ResponseEntity.status(HttpStatus.OK).body(user);
+        } catch (Exception e) {
+            logger.error("Error select user", e);
         }
         return null;
     }
