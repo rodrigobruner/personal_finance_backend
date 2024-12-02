@@ -5,6 +5,7 @@ import app.finance.api.Model.TransferModel;
 import app.finance.api.Repository.IAccountRepository;
 import app.finance.api.Repository.ITransferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,25 +45,23 @@ public class TransferController {
         return ResponseEntity.ok(savedTransfer);
     }
 
-    // Get all transfers
-    @GetMapping
-    public List<TransferModel> getAllTransfers() {
-        return transferRepository.findAll();
-    }
-
-    // Get a transfer by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<TransferModel> getTransferById(@PathVariable int id) {
-        Optional<TransferModel> transfer = transferRepository.findById(id);
-        return transfer.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
     // Update a transfer
     @PutMapping("/{id}")
     public ResponseEntity<TransferModel> updateTransfer(@PathVariable int id, @RequestBody TransferModel transferDetails) {
-        Optional<TransferModel> optionalTransfer = transferRepository.findById(id);
-        if (optionalTransfer.isPresent()) {
-            TransferModel transfer = optionalTransfer.get();
+        Optional<TransferModel> originalTransfer = transferRepository.findById(id);
+
+        if (!originalTransfer.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        AccountModel accountFrom = accountRepository.findById(originalTransfer.get().getFromAccount().getId()).orElseThrow(() -> new RuntimeException("Account not found"));
+
+        AccountModel accountTo = accountRepository.findById(originalTransfer.get().getToAccount().getId()).orElseThrow(() -> new RuntimeException("Account not found"));
+
+        accountFrom.setUpdatedAmount(accountFrom.getUpdatedAmount() + originalTransfer.get().getValue());
+        accountTo.setUpdatedAmount(accountTo.getUpdatedAmount() - originalTransfer.get().getValue());
+        
+        if (originalTransfer.isPresent()) {
+            TransferModel transfer = originalTransfer.get();
             transfer.setFromAccount(transferDetails.getFromAccount());
             transfer.setToAccount(transferDetails.getToAccount());
             transfer.setValue(transferDetails.getValue());
@@ -79,12 +78,48 @@ public class TransferController {
     // Delete a transfer
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTransfer(@PathVariable int id) {
+
         Optional<TransferModel> transfer = transferRepository.findById(id);
+        
+        if (!transfer.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        AccountModel accountFrom = accountRepository.findById(transfer.get().getFromAccount().getId()).orElseThrow(() -> new RuntimeException("Account not found"));
+
+        AccountModel accountTo = accountRepository.findById(transfer.get().getToAccount().getId()).orElseThrow(() -> new RuntimeException("Account not found"));
+
+        accountFrom.setUpdatedAmount(accountFrom.getUpdatedAmount() + transfer.get().getValue());
+        accountTo.setUpdatedAmount(accountTo.getUpdatedAmount() - transfer.get().getValue());
+        
         if (transfer.isPresent()) {
             transferRepository.delete(transfer.get());
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    // Get all transfers
+    @GetMapping
+    public List<TransferModel> getAllTransfers() {
+        return transferRepository.findAll();
+    }
+
+    // Get a transfer by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<TransferModel> getTransferById(@PathVariable int id) {
+        Optional<TransferModel> transfer = transferRepository.findById(id);
+        return transfer.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    // Get transfers by user UID
+    @GetMapping("/user/{uid}")
+    public ResponseEntity<List<TransferModel>> getTransfersByUserUid(@PathVariable int uid) {
+        List<TransferModel> transfers = transferRepository.findByFromAccountUserUid(uid);
+        if (transfers.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(transfers);
         }
     }
 }

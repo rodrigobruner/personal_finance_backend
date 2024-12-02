@@ -34,12 +34,5 @@ public class TransferModel {
 
     @Column(name = "createAt")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createAt;
-
-
-
-    public void setValue(String value) {
-        this.value = Double.parseDouble(value.replace("$", ""));
-    }
-    
+    private Date createAt;    
 }

@@ -1,0 +1,61 @@
+-- Account Types
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Savings Account', 'en-ca');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Checking Account', 'en-ca');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Money Market Account', 'en-ca');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Certificate of Deposit', 'en-ca');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Joint Account', 'en-ca');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Business Account', 'en-ca');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Student Account', 'en-ca');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Retirement Account', 'en-ca');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Trust Account', 'en-ca');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Credit card', 'en-ca');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Savings Account', 'en-us');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Checking Account', 'en-us');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Money Market Account', 'en-us');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Certificate of Deposit', 'en-us');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Joint Account', 'en-us');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Business Account', 'en-us');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Student Account', 'en-us');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Retirement Account', 'en-us');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Trust Account', 'en-us');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Credit card', 'en-us');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Conta corrente', 'pt-br');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Conta poupança', 'pt-br');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Conta conjunta', 'pt-br');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Conta empresarial', 'pt-br');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Conta estudante', 'pt-br');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Previdência Social', 'pt-br');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Previdência Privada', 'pt-br');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Investimentos', 'pt-br');
+INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Cartão de crédito', 'pt-br');
+
+
+-- Categories 
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Clothing', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Debt', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Education', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Food', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Gifts and donations', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Health', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Housing', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Insurance', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Other', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Recreation', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Taxes', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Transport', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Utilities', 'Expense');
+
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Awards', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Bonus', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Dividends', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Freelance', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Gifts', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Interest', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Investments', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Other', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Pensions', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Refunds', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Rent', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Retirement', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Sales', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ('1', 'Wages', 'Income');
