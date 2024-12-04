@@ -4,8 +4,15 @@ public enum CategoryType {
     Income,
     Expense;
 
-    String uppercase() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'uppercase'");
+    public static CategoryType fromString(String category) {
+        if (category != null) {
+            String normalizedCategory = category.trim().toUpperCase();
+            for (CategoryType type : CategoryType.values()) {
+                if (type.name().equalsIgnoreCase(normalizedCategory)) {
+                    return type;
+                }
+            }
+        }
+        throw new IllegalArgumentException("Invalid category type: " + category);
     }
 }

@@ -1,0 +1,28 @@
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Clothing', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Debt', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Education', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Food', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Gifts and donations', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Health', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Housing', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Insurance', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Other', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Recreation', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Taxes', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Transport', 'Expense');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Utilities', 'Expense');
+
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Awards', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Bonus', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Dividends', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Freelance', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Gifts', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Interest', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Investments', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Other', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Pensions', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Refunds', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Rent', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Retirement', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Sales', 'Income');
+INSERT INTO `personal_finances`.`category` (`uid`, `name`, `categoryType`) VALUES ({userId}, 'Wages', 'Income');
