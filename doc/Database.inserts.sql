@@ -28,6 +28,3 @@ INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Previd
 INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Previdência Privada', 'pt-br');
 INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Investimentos', 'pt-br');
 INSERT INTO `personal_finances`.`accountType` (`type`, `locale`) VALUES ('Cartão de crédito', 'pt-br');
-
-
--- Categories 
