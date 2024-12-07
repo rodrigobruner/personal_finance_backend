@@ -50,18 +50,20 @@ mvn clean install
 
 Windows
 
-1. Abra o Prompt de Comando.
-2. Navegue até o diretório do projeto.
-3. Execute o comando:
+1.	Open the Command Prompt.
+2.	Navigate to the project directory.
+3.	Run the command:
+
 ```sh
 mvn spring-boot:run
 ```
 
 Linux/Mac
 
-1. Abra o Terminal.
-2. Navegue até o diretório do projeto.
-3. Execute o comando:
+1.	Open the Terminal.
+2.	Navigate to the project directory.
+3.	Run the command:
+
 ```sh
 ./mvnw spring-boot:run
 ```
